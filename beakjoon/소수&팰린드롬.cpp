@@ -6,7 +6,7 @@
 
 using namespace std;
 
-vector<int> primenumber(int n) {
+vector<int> isPrime(int n) {
 	vector<bool> arr(n + 1, true);
 	vector<int> primes;
 	for (int i = 2; i < sqrt(n); i++) {
@@ -19,7 +19,7 @@ vector<int> primenumber(int n) {
 		}
 	}
 
-	for (int i = 2; i <= n; i++) {
+	for (int i = 2; i <= n; i++) {	
 		if (arr[i]) {
 			primes.push_back(i);
 		}
@@ -27,11 +27,26 @@ vector<int> primenumber(int n) {
 	return primes;
 }
 
-bool palindrome(int n) {
+bool isPalindrome(string s) {
+	int size = s.size();
 
+	for (int i = 0; i < size / 2; i++) {
+		if (s[i] != s[size - 1 - i]) {
+			return false;
+		}
+	}
+	return true;
 }
 
-
+int findpalindrome(int n) {
+	int num = n;
+	while (1) {
+		string numstr = to_string(num);
+		if (isPalindrome(numstr) && isPrime(num)) {
+			return num;
+		}
+	}
+}
 int main() {
 	int n;
 
@@ -40,12 +55,5 @@ int main() {
 		return 1;
 	}
 
-	vector<int> result = primenumber(n);
-	
-	for (int prime : result) {
-		string numstr = to_string(prime);
-		if (palindrome(numstr)) {
-
-		}
-	}
+	int result = findpalindrome(n);
 }
