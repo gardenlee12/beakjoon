@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 vector<int> primenumber(int n) {
 	vector<bool> arr(n + 1, true);
 	vector<int> primes;
