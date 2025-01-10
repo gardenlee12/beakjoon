@@ -1,15 +1,17 @@
 #include <iostream>
-#include <math.h>
 #include <vector>
 #include <string>
 #include <sstream>
 
 using namespace std;
 
-vector<int> isPrime(int n) {
+bool isPrime(int n) {
 	vector<bool> arr(n + 1, true);
-	vector<int> primes;
-	for (int i = 2; i < sqrt(n); i++) {
+
+	if (n <= 1) {
+		return false;
+	}
+	for (int i = 2; i * i < n; i++) {
 		if (arr[i]) {
 			int j = 2;
 			while (i * j < n) {
@@ -18,13 +20,8 @@ vector<int> isPrime(int n) {
 			}
 		}
 	}
-
-	for (int i = 2; i <= n; i++) {	
-		if (arr[i]) {
-			primes.push_back(i);
-		}
-	}
-	return primes;
+	
+	return arr[n];
 }
 
 bool isPalindrome(string s) {
@@ -38,22 +35,23 @@ bool isPalindrome(string s) {
 	return true;
 }
 
-int findpalindrome(int n) {
+int findPalindrome(int n) {
 	int num = n;
-	while (1) {
+	while (true) {
 		string numstr = to_string(num);
 		if (isPalindrome(numstr) && isPrime(num)) {
 			return num;
 		}
+		num++;
 	}
 }
 int main() {
 	int n;
-
 	cin >> n;
 	if (n < 0 || n > 1000000) {
 		return 1;
 	}
 
-	int result = findpalindrome(n);
+	int result = findPalindrome(n);
+	cout << result;
 }
