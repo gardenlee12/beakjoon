@@ -108,5 +108,8 @@
     <ClCompile Include="소수&amp;팰린드롬.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="누울 자리를 찾아라.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
