@@ -1,27 +1,16 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <sstream>
+#include <cmath>
 
 using namespace std;
 
-bool isPrime(int n) {
-	vector<bool> arr(n + 1, true);
-
-	if (n <= 1) {
-		return false;
+bool isPrime(int num) {
+	if (num < 2) return false;
+	for (int i = 2; i <= sqrt(num); i++) {
+		if (num % i == 0) return false;
 	}
-	for (int i = 2; i * i < n; i++) {
-		if (arr[i]) {
-			int j = 2;
-			while (i * j < n) {
-				arr[i * j] = false;
-				j++;
-			}
-		}
-	}
-	
-	return arr[n];
+	return true;
 }
 
 bool isPalindrome(string s) {
@@ -38,8 +27,7 @@ bool isPalindrome(string s) {
 int findPalindrome(int n) {
 	int num = n;
 	while (true) {
-		string numstr = to_string(num);
-		if (isPalindrome(numstr) && isPrime(num)) {
+		if (isPalindrome(to_string(num)) && isPrime(num)) {
 			return num;
 		}
 		num++;
