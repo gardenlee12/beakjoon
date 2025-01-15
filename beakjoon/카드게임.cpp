@@ -41,21 +41,15 @@ int main() {
 	// 1. 카드 5장이 모두 같은 색이면서 숫자가 연속적일 때
 	if (colorCount.size() == 1 && isConsecutive(numbers)) {
 		score = numbers.back() + 900;
-	}// 2. 카드 5장중 4장이 같은 숫자일 때
+	}// 2. 카드 5장중 4장이 같은 숫자일 때 or 카드 5장중 3장의 숫자가 같고 나머지 2장의 숫자가 같을 때
 	else if (numCount.size() == 2) {
-		bool foundFour = false;
+		bool foundFour = false, foundThree = false, foundTwo = false;
+		int fourCount = 0, threeCount = 0, twoCount = 0;
 		for (const auto& card : numCount) {
 			if (card.second == 4) {
 				foundFour = true;
-				score = card.first + 800;
-				break;
+				fourCount = card.first;
 			}
-		}
-	}// 3. 카드 5장중 3장의 숫자가 같고 나머지 2장의 숫자가 같을 때
-	else if (numCount.size() == 2) {
-		bool foundThree = false, foundTwo = false;
-		int threeCount = 0, twoCount = 0;
-		for (const auto& card : numCount) {
 			if (card.second == 3) {
 				foundThree = true;
 				threeCount = card.first;
@@ -64,17 +58,20 @@ int main() {
 				twoCount = card.first;
 			}
 		}
-		if (foundThree && foundTwo) {
+		if (fourCount) {
+			score = fourCount + 800;
+		} else if (foundThree && foundTwo) {
 			score = (threeCount * 10) + twoCount + 700;
 		}
-	}// 4. 카드 5장의 색이 모두 같을 때
+	}// 3. 카드 5장의 색이 모두 같을 때
 	else if (colorCount.size() == 1) {
 		score = numbers.back() + 600;
-	}// 5. 카드 5장의 숫자가 연속적일 때
+	}// 4. 카드 5장의 숫자가 연속적일 때
 	else if (isConsecutive(numbers)) {
 		score = numbers.back() + 500;
-	}// 6. 카드 5장중 3장의 숫자가 같을 때
+	}// 5. 카드 5장중 3장의 숫자가 같을 때 or 카드 5장중 2장의 숫자가 같고 또 다른 2장의 숫자가 같을 때
 	else if (numCount.size() == 3) {
+		vector<int> pairs;
 		bool foundThree = false;
 		for (const auto& card : numCount) {
 			if (card.second == 3) {
@@ -82,11 +79,6 @@ int main() {
 				score = card.first + 400;
 				break;
 			}
-		}
-	}// 7. 카드 5장중 2장의 숫자가 같고 또 다른 2장의 숫자가 같을 때
-	else if (numCount.size() == 3) {
-		vector<int> pairs;
-		for (const auto& card : numCount) {
 			if (card.second == 2) {
 				pairs.push_back(card.first);
 			}
@@ -95,7 +87,8 @@ int main() {
 			sort(pairs.begin(), pairs.end(), greater<int>());
 			score = pairs[0] * 10 + pairs[1] + 300;
 		}
-	}// 8. 카드 5장 중 2장의 숫자가 같을 때
+	} 
+	// 6. 카드 5장 중 2장의 숫자가 같을 때
 	else if (numCount.size() == 4) {
 		for (const auto& card : numCount) {
 			if (card.second == 2) {
@@ -103,7 +96,7 @@ int main() {
 				break;
 			}
 		}
-	}//9. 위의 어떤 경우도 아닌 경우
+	}//7. 위의 어떤 경우도 아닌 경우
 	else {
 		score = numbers.back() + 100;
 	}
