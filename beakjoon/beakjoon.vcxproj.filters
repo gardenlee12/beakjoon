@@ -132,5 +132,8 @@
     <ClCompile Include="유기농 배추.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="영역 구하기.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
